@@ -9,18 +9,18 @@ pipeline {
             }
         }
 
-        stage('Tigger the Slave Jobs') {
+        stage('Trigger the Slave Jobs') {
             steps {
             script {
                     def file = readFile "./data.txt"
                     def lines = file.readLines()[0].split(' ')
-                    env.fullName = lines[0] + " " + lines[1]
-                    env.height = lines[2]
-                    env.weight = lines[3]
-                    env.age = lines[4]
+                    env.firstName = lines[0]
+                    env.height = lines[1]
+                    env.weight = lines[2]
+                    env.age = lines[3]
                 }
                 echo 'Start Trigger to send name and age to slave'
-                build job: 'MySlave', parameters: [string(name: 'FULLNAME', value: "$fullName"), string(name: 'HEIGHT', value: "$height"), string(name: 'WEIGHT', value: "$weight"), string(name: 'AGE', value: "$age")]
+                build job: 'slave', parameters: [string(name: 'FIRSTNAME', value: "$firstName"), string(name: 'HEIGHT', value: "$height"), string(name: 'WEIGHT', value: "$weight"), string(name: 'AGE', value: "$age")]
             }
         }
     }
