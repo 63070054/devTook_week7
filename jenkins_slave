@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Example') {
+            steps {
+                sh ("python myscript.py fullName ${params.FULLNAME} height ${params.HEIGHT} weight ${params.WEIGHT} age ${params.AGE}")
+            }
+        }
+    }
+}
